@@ -1,48 +1,61 @@
 /* Ion Button */
-ion-button::part(native) {
-	text-transform: none;
-	padding: 15px;
-	border: 1px solid var(--ion-color-primary);
-	border-radius: 50px;
-	box-shadow: none;
-	transition: 0.5s;
-}
+	ion-button::part(native) {
+		text-transform: none;
+		padding: 15px;
+		border: 1px solid var(--ion-color-primary);
+		border-radius: 50px;
+		box-shadow: none;
+		transition: 0.5s;
+	}
 
-ion-button {
-	margin: 0;
-}
+	ion-button {
+		margin: 0;
+	}
 
-/* Ion Input */
-.input-wrapper.sc-ion-input-md input.sc-ion-input-md {
-	padding: 12px 20px;
-	border: 2px solid var(--ion-text-color);
-	border-radius: 50px;
-	transition: 0.5s border-color;
-}
+/* Ion Inputs */
+	.input-wrapper.sc-ion-input-md input.sc-ion-input-md,
+	.textarea-wrapper.sc-ion-textarea-md textarea.sc-ion-textarea-md {
+		padding: 12px 20px;
+		border: 2px solid var(--ion-text-color);
+		border-radius: 50px;
+		transition: 0.5s border-color;
+	}
 
-.input-wrapper.sc-ion-input-md input.sc-ion-input-md::placeholder {
-	color: var(--ion-text-color);
-	opacity: 0.7;
-}
+	.input-wrapper.sc-ion-input-md input.sc-ion-input-md::placeholder,
+	.textarea-wrapper.sc-ion-textarea-md textarea.sc-ion-textarea-md::placeholder {
+		color: var(--ion-text-color);
+		opacity: 0.7;
+	}
 
-.input-wrapper.sc-ion-input-md input.sc-ion-input-md:focus {
-	border-color: var(--ion-color-primary);
-}
+	.input-wrapper.sc-ion-input-md input.sc-ion-input-md:focus,
+	.textarea-wrapper.sc-ion-textarea-md textarea.sc-ion-textarea-md:focus {
+		border-color: var(--ion-color-primary);
+	}
 
-.input-highlight.sc-ion-input-md {
-	display: none;
-}
+	.input-highlight.sc-ion-input-md,
+	.textarea-highlight.sc-ion-textarea-md {
+		display: none;
+	}
+
+	.textarea-wrapper.sc-ion-textarea-md textarea.sc-ion-textarea-md {
+		padding: 20px;
+		border-radius: 20px;
+	}
 
 /* App Forms */
-.app-form-input-wrapper {
-	margin-bottom: 15px;
-}
+	.app-form-input-wrapper {
+		margin-bottom: 15px;
+	}
 
 /* App Text */
-h1, h2, h3, h4, h5, h6, p {
-	margin: 0 0 15px 0;
-}
+	h1, h2, h3, h4, h5, h6, p {
+		margin: 0 0 15px 0;
+	}
 
-:last-child {
-	margin-bottom: 0;
-}
+	p {
+		line-height: 1.5;
+	}
+
+	:last-child {
+		margin-bottom: 0;
+	}
