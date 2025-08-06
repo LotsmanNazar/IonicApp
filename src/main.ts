@@ -32,12 +32,13 @@ import '@ionic/vue/css/display.css';
 import '@ionic/vue/css/palettes/dark.system.css';
 
 /* Theme variables */
-import './theme/variables.css';
+import '@/theme/variables.css';
+import '@/theme/styles.css';
 
 const app = createApp(App)
-  .use(IonicVue)
-  .use(router);
+	.use(IonicVue)
+	.use(router);
 
 router.isReady().then(() => {
-  app.mount('#app');
+  	app.mount('#app');
 });
