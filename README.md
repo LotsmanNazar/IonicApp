@@ -29,5 +29,6 @@ builder =>
 			.AllowCredentials();
 }));
 
+// Before UseRouting
 app.UseCors("CorsPolicy");
 ```
