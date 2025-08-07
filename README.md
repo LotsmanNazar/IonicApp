@@ -28,4 +28,6 @@ builder =>
 			.SetIsOriginAllowed((host) => true)
 			.AllowCredentials();
 }));
+
+app.UseCors("CorsPolicy");
 ```
