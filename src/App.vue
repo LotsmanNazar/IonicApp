@@ -27,8 +27,8 @@
 
 <script setup lang="ts">
 	import { IonGrid, IonRow, IonCol, IonApp, IonRouterOutlet } from '@ionic/vue';
-	import InfoNotice from '@/components/InfoNotice.vue';
 	import { useNoticesStore } from '@/stores/notices.store';
+	import InfoNotice from '@/components/InfoNotice.vue';
 
 	const noticesStore = useNoticesStore();
 </script>

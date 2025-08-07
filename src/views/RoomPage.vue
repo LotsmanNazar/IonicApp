@@ -20,7 +20,22 @@
 
 <script setup lang="ts">
 	import { IonGrid, IonRow, IonCol, IonContent, IonPage } from '@ionic/vue';
+	import { onBeforeRouteLeave } from 'vue-router';
+	import { useMessengerStore } from '@/stores/messenger.store';
+	import { disconnect } from '@/services/signalr/signalr.service';
 	import ChatMessenger from '@/components/ChatMessenger.vue';
+
+	const messengerStore = useMessengerStore();
+
+	onBeforeRouteLeave(async (to, from, next) => {
+		await disconnect();
+
+		messengerStore.currentUsername = '';
+		messengerStore.currentUserID = '';
+		messengerStore.clear();
+		
+		next();
+	});
 </script>
 
 <style scoped>

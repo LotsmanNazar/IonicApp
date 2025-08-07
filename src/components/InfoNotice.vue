@@ -10,7 +10,7 @@
 
 				<div class="app-notice-header">
 					<div class="app-notice-title-wrapper">
-						<h3 class="app-notice-title">{{ props.title }}</h3>
+						<h5 class="app-notice-title">{{ props.title }}</h5>
 					</div>
 				</div>
 

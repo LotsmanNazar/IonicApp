@@ -1,5 +1,5 @@
 <template>
-	<div class="app-chat-message-wrapper">
+	<div class="app-chat-message-wrapper" :class="props.owner ? 'app-chat-owner-message-wrapper' : ''">
 		<div class="app-chat-message-avatar">
 			<span></span>
 		</div>
@@ -7,7 +7,7 @@
 		<div class="app-chat-message-content">
 			<div class="app-chat-message-info">
 				<span class="app-chat-message-user app-chat-message-info-item">{{ props.name }}</span>
-				<span class="app-chat-message-time app-chat-message-info-item">{{ props.time }}</span>
+				<span class="app-chat-message-time app-chat-message-info-item">{{ new Date(props.time).toLocaleString() }}</span>
 			</div>
 
 			<div class="app-chat-message">
@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 	import { defineProps } from 'vue';
-	
+
 	const props = defineProps({
 		name: {
 			type: String,
@@ -27,12 +27,17 @@
 		},
 
 		time: {
-			type: String,
+			type: Number,
 			required: true
 		},
 
 		message: {
 			type: String,
+			required: true
+		},
+
+		owner: {
+			type: Boolean,
 			required: true
 		}
 	});
@@ -52,10 +57,6 @@
 
 	.app-chat-owner-message-wrapper {
 		background-color: var(--app-light-blue);
-	}
-
-	.app-chat-message-wrapper:last-child {
-		margin: 0;
 	}
 
 	.app-chat-message-avatar span {

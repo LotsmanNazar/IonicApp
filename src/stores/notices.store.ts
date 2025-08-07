@@ -7,13 +7,20 @@ export const useNoticesStore = defineStore('noticesStore', {
 	}),
 
 	actions: {
-		add(notice: NoticeType) {
-			this.notices.set(this.id, notice);
+		add(notice: NoticeType): number {
+			const id = this.id;
+			this.notices.set(id, notice);
 			this.id++;
+
+			return id;
 		},
 
 		delete(id: number) {
 			this.notices.delete(id);
+		},
+
+		clear() {
+			this.notices.clear();
 		}
 	}
 });

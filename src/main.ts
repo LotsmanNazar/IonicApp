@@ -35,12 +35,24 @@ import '@ionic/vue/css/palettes/dark.system.css';
 /* Theme variables */
 import '@/theme/variables.css';
 import '@/theme/styles.css';
+import { errorHandler } from '@/utils/error-handler.util';
 
 const pinia = createPinia();
 const app = createApp(App);
+
 app.use(IonicVue)
 app.use(router);
 app.use(pinia);
+
+// Global errors handler
+app.config.errorHandler = (error, instance, info) => {
+	errorHandler(error);
+}
+
+// Global errors handler
+window.onunhandledrejection = (error) => {
+	errorHandler(error.reason);
+}
 
 router.isReady().then(() => {
   	app.mount('#app');

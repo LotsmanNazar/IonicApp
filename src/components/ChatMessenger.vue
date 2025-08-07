@@ -3,21 +3,24 @@
 		<div class="app-chat-wrapper">
 			<div class="app-chat">
 				<div class="app-chat-messages-wrapper">
-					<div class="app-chat-messages">
-						<ChatMessage
-							name="BotHelper"
-							time="15:00"
-							message="Please be polite and respectful to other chat users"
-						></ChatMessage>
+					<div class="app-chat-messages" ref="messagesList">
+						<div class="app-chat-message-item" v-for="([key, message]) in messengerStore.messages" :key="key">
+							<ChatMessage
+								:name="message.username"
+								:time="message.timestamp"
+								:message="message.message"
+								:owner="message.owner"
+							></ChatMessage>
+						</div>
 					</div>
 				</div>
 
 				<div class="app-chat-controls-wrapper">
 					<div class="app-chat-controls">
 						<div class="app-chat-new-message-wrapper">
-							<form class="app-chat-new-message">
+							<form class="app-chat-new-message" @submit="newMessageSubmit($event)">
 								<div class="app-form-input-wrapper app-chat-message-input">
-									<ion-textarea placeholder="Your Message" required></ion-textarea>
+									<ion-textarea placeholder="Your Message" required v-model="message" @keydown="textareaKeydown($event)"></ion-textarea>
 								</div>
 
 								<div class="app-form-submit-wrapper">
@@ -34,7 +37,77 @@
 
 <script setup lang="ts">
 	import { IonTextarea, IonButton } from '@ionic/vue';
+	import { ref, watch, nextTick, onUnmounted } from 'vue';
+	import { useMessengerStore } from '@/stores/messenger.store';
+	import { sendMessage } from '@/services/signalr/requests/send-message.request';
 	import ChatMessage from '@/components/ChatMessage.vue';
+
+	const messengerStore = useMessengerStore();
+	const messagesList = ref<HTMLElement | null>(null);
+	const message = ref<string>('');
+
+	const textareaKeydown = (e: KeyboardEvent) => {
+		if ( e.key == 'Enter' ) {
+			e.preventDefault();
+			submitMessage();
+		}
+	}
+
+	const newMessageSubmit = (e: Event) => {
+		e.preventDefault();
+		submitMessage();
+	}
+
+	const submitMessage = () => {
+		if ( !message.value ) {
+			return;
+		}
+
+		// Add a message to the chat before sending it to the server
+		messengerStore.add({
+			userID: messengerStore.currentUserID,
+			username: messengerStore.currentUsername,
+			message: message.value,
+			timestamp: Date.now(),
+			owner: true
+		});
+
+		// Send message to the server
+		// If there are errors, they will be caught by global error handlers
+		sendMessage(message.value);
+		
+		message.value = '';
+	}
+
+	watch(
+		() => {
+			return messengerStore.messages.size
+		},
+
+		async () => {
+			// Wait for the new message to be rendered
+			await nextTick();
+
+			// Scroll down the list of messages
+			messagesList.value?.scrollTo({
+				top: messagesList.value.scrollHeight,
+				behavior: 'smooth'
+			});
+		}
+	);
+
+	onUnmounted(() => {
+		messengerStore.messages.clear();
+	});
+
+	// Default chat message
+	messengerStore.add({
+		userID: 'BotHelper',
+		username: 'BotHelper',
+		message: 'Please be polite and respectful to other chat users',
+		timestamp: Date.now(),
+		owner: false
+	});
 </script>
 
 <style scoped>
@@ -49,14 +122,15 @@
 	}
 
 	.app-chat-wrapper {
+		background-color: var(--ion-background-color);
 		padding: 10px 30px 30px 30px;
-		border: 2px solid var(--ion-color-light-shade);
+		border: 7px solid var(--app-dark-blue);
 		border-radius: 25px;
 	}
 
 	.app-chat-messages-wrapper {
 		height: calc(100% - 200px);
-		padding: 20px 0;
+		padding-top: 20px;
 	}
 
 	.app-chat-controls-wrapper {
