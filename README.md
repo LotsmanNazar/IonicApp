@@ -18,7 +18,7 @@ Running the application in development mode
 npx ionic serve
 ```
 
-Check the server connection address settings in the <b>config.ts</b> file
+Check the server connection address settings in the <b>/src/config.ts</b> file
 
 <hr>
 
