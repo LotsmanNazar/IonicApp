@@ -5,13 +5,14 @@ git clone https://github.com/LotsmanNazar/IonicApp
 ```
 
 ```
+cd IonicApp
+```
+
+```
 npm install
 ```
 
 Running the application in development mode
-```
-cd IonicApp
-```
 
 ```
 npx ionic serve
