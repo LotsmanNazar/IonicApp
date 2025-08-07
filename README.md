@@ -10,8 +10,14 @@ npm install
 
 Running the application in development mode
 ```
+cd IonicApp
+```
+
+```
 npx ionic serve
 ```
+
+Check the server connection address settings in the <b>config.ts</b> file
 
 <hr>
 
